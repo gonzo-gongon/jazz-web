@@ -25,6 +25,7 @@ npm run dev
 
 # Code quality check
 npm run lint
+npm run lint:fix
 npm run format
 
 # Build

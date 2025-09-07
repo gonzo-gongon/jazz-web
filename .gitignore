@@ -2,3 +2,4 @@
 /.wrangler/
 /.serena/cache/
 /.next/
+.env

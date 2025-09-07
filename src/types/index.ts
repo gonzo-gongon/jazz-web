@@ -1,5 +1,40 @@
-// 基本的な型定義（GraphQLスキーマ導入前の暫定版）
+// GraphQL型定義
 
+export enum SortOrder {
+  ASC = "ASC",
+  DESC = "DESC",
+}
+
+export interface EventSearchInput {
+  startDate?: string
+  endDate?: string
+  titleSearchWord?: string
+  venueIds?: string[]
+  instrumentIds?: string[]
+  sortOrder?: SortOrder
+  limit?: number
+  offset?: number
+}
+
+export interface Venue {
+  id: string
+  name: string
+}
+
+export interface Event {
+  id: string
+  title: string
+  startAt: string
+  price?: number
+  url?: string
+  venue: Venue
+}
+
+export interface SearchEventsResponse {
+  searchEvents: Event[]
+}
+
+// 検索フィルター用の型（UI用）
 export interface SearchFilters {
   instrument: string
   area: string
@@ -10,26 +45,4 @@ export interface SearchFilters {
 export interface SearchState {
   query: string
   filters: SearchFilters
-}
-
-// 後でGraphQLスキーマから自動生成される予定
-export interface Event {
-  id: string
-  title: string
-  startAt: string
-  endAt?: string
-  priceYen?: number
-  url?: string
-  venue: {
-    id: string
-    name: string
-    area: string
-    address?: string
-  }
-  artists: Array<{
-    id: string
-    name: string
-    instrument?: string
-    role?: string
-  }>
 }
