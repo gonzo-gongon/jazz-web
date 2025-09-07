@@ -31,6 +31,10 @@ npm run format
 npm run build
 ```
 
+### Git Commit Rules
+- **コミットメッセージは日本語で書く**
+- コミット時は必ず日本語でメッセージを作成すること
+
 ## About This Project
 Tokyo jazz live house information search system with:
 - Search by instrument, location, and date
