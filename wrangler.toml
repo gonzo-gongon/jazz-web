@@ -1,0 +1,9 @@
+name = "jazz-web"
+main = "functions/index.ts"
+compatibility_date = "2025-08-01"
+
+[env.production.vars]
+ENVIRONMENT = "production"
+
+[env.development.vars]
+ENVIRONMENT = "development"

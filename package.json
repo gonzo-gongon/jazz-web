@@ -1,0 +1,45 @@
+{
+  "name": "jazz-web",
+  "version": "0.1.0",
+  "description": "東京のジャズライブハウス情報検索サイト",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "format": "biome format --write .",
+    "pages:build": "npx @cloudflare/next-on-pages",
+    "preview": "npm run pages:build && wrangler pages dev",
+    "deploy": "npm run pages:build && wrangler pages deploy",
+    "cf-typegen": "wrangler types"
+  },
+  "dependencies": {
+    "@apollo/client": "^4.0.3",
+    "graphql": "^16.8.0",
+    "next": "^15.5.2",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.2.2",
+    "@cloudflare/next-on-pages": "1",
+    "@types/node": "^24.3.0",
+    "@types/react": "^19.1.12",
+    "@types/react-dom": "^19.1.9",
+    "autoprefixer": "^10.4.0",
+    "postcss": "^8.4.0",
+    "tailwindcss": "^4.1.12",
+    "typescript": "^5",
+    "wrangler": "^4.33.1"
+  },
+  "overrides": {
+    "esbuild": "^0.25.9",
+    "path-to-regexp": "^8.1.0",
+    "undici": "^6.20.1",
+    "cookie": "^0.7.2"
+  },
+  "engines": {
+    "node": ">=18.17.0"
+  }
+}
