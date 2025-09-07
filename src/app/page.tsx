@@ -9,12 +9,12 @@ import {
   useState,
 } from "react"
 import { useSearchEvents } from "@/hooks/useSearchEvents"
-import { type Event, type EventSearchInput, SortOrder } from "@/types"
+import { type EventSearchInput, SortOrder } from "@/generated/graphql"
 
 export default function HomePage(): JSX.Element {
   const [searchInput, setSearchInput] = useState<EventSearchInput>({
     limit: 20,
-    sortOrder: SortOrder.DESC,
+    sortOrder: SortOrder.Desc,
   })
 
   const [debouncedSearchInput, setDebouncedSearchInput] = useState(searchInput)
@@ -171,7 +171,7 @@ export default function HomePage(): JSX.Element {
               {data.searchEvents.length}件の結果が見つかりました
             </p>
 
-            {data.searchEvents.map((event: Event) => (
+            {data.searchEvents.map((event) => (
               <div key={event.id} className="border p-4 rounded-lg">
                 <h3 className="text-lg font-semibold mb-2">{event.title}</h3>
                 <div className="text-sm text-gray-600 space-y-1">

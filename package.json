@@ -3,13 +3,13 @@
   "version": "0.1.0",
   "description": "東京のジャズライブハウス情報検索サイト",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "codegen": "graphql-codegen",
+    "codegen:watch": "graphql-codegen --watch",
+    "dev": "npm run codegen && next dev",
     "lint": "biome check .",
     "lint:fix": "biome check --write .",
     "format": "biome format --write .",
-    "pages:build": "npx @cloudflare/next-on-pages",
+    "pages:build": "npm run codegen && npx @cloudflare/next-on-pages",
     "preview": "npm run pages:build && wrangler pages dev",
     "deploy": "npm run pages:build && wrangler pages deploy",
     "cf-typegen": "wrangler types"
@@ -24,6 +24,9 @@
   "devDependencies": {
     "@biomejs/biome": "^2.2.2",
     "@cloudflare/next-on-pages": "1",
+    "@graphql-codegen/cli": "^5.0.7",
+    "@graphql-codegen/typescript": "^4.1.6",
+    "@graphql-codegen/typescript-react-apollo": "^4.3.3",
     "@types/node": "^24.3.0",
     "@types/react": "^19.1.12",
     "@types/react-dom": "^19.1.9",

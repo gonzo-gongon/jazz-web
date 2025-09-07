@@ -2,12 +2,12 @@
 
 import { type JSX, useId, useState } from "react"
 import { useSearchEvents } from "@/hooks/useSearchEvents"
-import { type EventSearchInput, SortOrder } from "@/types"
+import { type EventSearchInput, SortOrder } from "@/generated/graphql"
 
 export default function EventSearch(): JSX.Element {
   const [input, setInput] = useState<EventSearchInput>({
     limit: 20,
-    sortOrder: SortOrder.DESC,
+    sortOrder: SortOrder.Desc,
   })
 
   const { data, loading, error } = useSearchEvents(input)
