@@ -19,12 +19,14 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    // 拡張機能（Google Analytics オプトアウトなど）でHydration Errorになるのを回避
-    <html lang="ja" suppressHydrationWarning>
-      <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable}`}>
-        <Suspense fallback={null}>{children}</Suspense>
-        <Analytics />
-      </body>
-    </html>
+    <>
+      {/* 拡張機能（Google Analytics オプトアウトなど）でHydration Errorになるのを回避 */}
+      <html lang="ja" suppressHydrationWarning>
+        <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable}`}>
+          <Suspense fallback={null}>{children}</Suspense>
+          <Analytics />
+        </body>
+      </html>
+    </>
   )
 }
