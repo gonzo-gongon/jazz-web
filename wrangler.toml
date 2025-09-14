@@ -3,7 +3,7 @@ compatibility_date = "2025-08-01"
 
 [[services]]
 binding = "GQL"
-service = "graphql-api"
+service = "jazz-scraper"
 
 [env.production.vars]
 ENVIRONMENT = "production"
