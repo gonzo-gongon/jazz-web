@@ -2,7 +2,7 @@
 
 import { ApolloProvider } from "@apollo/client/react"
 import type React from "react"
-import client from "../lib/apollo"
+import client from "@/lib/apollo"
 
 interface ProvidersProps {
   children: React.ReactNode

@@ -5,6 +5,7 @@ import type React from "react"
 import { Suspense } from "react"
 import "./globals.css"
 import { Analytics } from "@vercel/analytics/next"
+import { Providers } from "@/components/providers"
 
 export const metadata: Metadata = {
   title: "Jazz Web - 東京ジャズライブハウス情報",
@@ -23,7 +24,9 @@ export default function RootLayout({
       {/* 拡張機能（Google Analytics オプトアウトなど）でHydration Errorになるのを回避 */}
       <html lang="ja" suppressHydrationWarning>
         <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable}`}>
-          <Suspense fallback={null}>{children}</Suspense>
+          <Providers>
+            <Suspense fallback={null}>{children}</Suspense>
+          </Providers>
           <Analytics />
         </body>
       </html>

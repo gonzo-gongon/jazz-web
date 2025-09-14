@@ -6,9 +6,28 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { type EventSearchInput, SortOrder } from "@/generated/graphql"
 
-export function EventSearch() {
-  const [searchQuery, setSearchQuery] = useState("ジャズセッション")
+interface EventSearchProps {
+  onSearch: (input: EventSearchInput) => void
+}
+
+export function EventSearch({ onSearch }: EventSearchProps) {
+  const [searchQuery, setSearchQuery] = useState("")
+
+  const handleSearch = () => {
+    const searchInput: EventSearchInput = {
+      titleSearchWord: searchQuery || undefined,
+      instrumentIds: [],
+      venueIds: [],
+      startDate: undefined,
+      endDate: undefined,
+      sortOrder: SortOrder.Asc,
+      limit: 50,
+      offset: 0,
+    }
+    onSearch(searchInput)
+  }
 
   return (
     <Card className="mb-8 shadow-lg border-0 bg-card">
@@ -37,6 +56,7 @@ export function EventSearch() {
         <div className="flex justify-center pt-4">
           <Button
             size="lg"
+            onClick={handleSearch}
             className="px-8 py-3 bg-primary hover:bg-primary/90 text-primary-foreground font-medium"
           >
             <Search className="h-5 w-5 mr-2" />

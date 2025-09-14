@@ -1,57 +1,58 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { MapPin, Clock, ExternalLink } from "lucide-react"
+import { MapPin, Clock, ExternalLink, Loader2 } from "lucide-react"
+import { useSearchEvents } from "@/hooks/use-search-events"
+import type { EventSearchInput } from "@/generated/graphql"
+import { format } from "date-fns"
+import { ja } from "date-fns/locale"
 
-const mockEvents = [
-  {
-    id: 1,
-    title: "岩上真紀(sax)5 (田村さおり (fl) ,飯塚由加 (p) , 野々口毅 (b) , 小松誠二 (ds))",
-    venue: "Sometime 吉祥寺",
-    date: "2025年8月31日(日)",
-    performers: ["岩上真紀", "田村さおり", "飯塚由加", "野々口毅", "小松誠二"],
-    instruments: ["sax", "fl", "p", "b", "ds"],
-  },
-  {
-    id: 2,
-    title: "清水秀子(vo) (羽仁知治 (p) , 斉藤誠 (b) , 加納樹麻 (ds))",
-    venue: "Sometime 吉祥寺",
-    date: "2025年8月31日(日)",
-    performers: ["清水秀子", "羽仁知治", "斉藤誠", "加納樹麻"],
-    instruments: ["vo", "p", "b", "ds"],
-  },
-  {
-    id: 3,
-    title: "西山瞳NHORHMスペシャル 【昼の部】 (西山瞳(P) 鶴原良次(fretlessB) 江藤良人(Ds))",
-    venue: "新宿 PIT INN",
-    date: "2025年8月31日(日)",
-    performers: ["西山瞳", "鶴原良次", "江藤良人"],
-    instruments: ["P", "fretlessB", "Ds"],
-  },
-]
+interface EventResultsProps {
+  searchInput: EventSearchInput
+}
 
-function groupEventsByDate(events: typeof mockEvents) {
+function groupEventsByDate(events: any[]) {
   return events.reduce(
     (groups, event) => {
-      const date = event.date
+      const date = format(new Date(event.startAt), "yyyy年MM月dd日(E)", { locale: ja })
       if (!groups[date]) {
         groups[date] = []
       }
       groups[date].push(event)
       return groups
     },
-    {} as Record<string, typeof mockEvents>,
+    {} as Record<string, any[]>,
   )
 }
 
-export function EventResults() {
-  const groupedEvents = groupEventsByDate(mockEvents)
+export function EventResults({ searchInput }: EventResultsProps) {
+  const { data, loading, error } = useSearchEvents(searchInput)
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center py-12">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        <span className="ml-2 text-lg text-muted-foreground">検索中...</span>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="text-center py-12">
+        <p className="text-lg text-destructive">エラーが発生しました: {error.message}</p>
+      </div>
+    )
+  }
+
+  const events = data?.searchEvents || []
+  const groupedEvents = groupEventsByDate(events)
 
   return (
     <div className="space-y-8">
       <div className="flex items-center justify-between">
         <h2 className="text-3xl font-serif font-bold text-primary">検索結果</h2>
         <Badge variant="secondary" className="text-sm px-3 py-1">
-          {mockEvents.length}件の結果が見つかりました
+          {events.length}件の結果が見つかりました
         </Badge>
       </div>
 
@@ -73,34 +74,47 @@ export function EventResults() {
                     <div className="space-y-2 flex-1">
                       <div className="flex items-center gap-2">
                         <MapPin className="h-4 w-4 text-accent" />
-                        <span className="text-lg font-semibold text-foreground">{event.venue}</span>
+                        <span className="text-lg font-semibold text-foreground">{event.venue.name}</span>
                       </div>
 
                       <CardTitle className="text-base font-serif leading-relaxed text-balance group-hover:text-primary transition-colors text-muted-foreground">
                         {event.title}
                       </CardTitle>
+
+                      {event.price && (
+                        <p className="text-sm text-muted-foreground">
+                          料金: ¥{event.price.toLocaleString()}
+                        </p>
+                      )}
                     </div>
 
-                    <ExternalLink className="h-4 w-4 text-accent shrink-0 group-hover:text-primary transition-colors" />
+                    {event.url && (
+                      <ExternalLink className="h-4 w-4 text-accent shrink-0 group-hover:text-primary transition-colors" />
+                    )}
                   </div>
                 </CardHeader>
 
-                <CardContent>
-                  <div className="space-y-2">
-                    <h4 className="text-sm font-medium text-foreground">出演者・楽器</h4>
-                    <div className="flex flex-wrap gap-2">
-                      {event.performers.map((performer, index) => (
-                        <Badge
-                          key={performer}
-                          variant="outline"
-                          className="text-xs border-accent/30 text-foreground hover:bg-accent/10"
-                        >
-                          {performer} ({event.instruments[index]})
-                        </Badge>
-                      ))}
+                {event.url ? (
+                  <a href={event.url} target="_blank" rel="noopener noreferrer">
+                    <CardContent>
+                      <div className="space-y-2">
+                        <h4 className="text-sm font-medium text-foreground">詳細情報</h4>
+                        <p className="text-sm text-muted-foreground">
+                          クリックして詳細を確認
+                        </p>
+                      </div>
+                    </CardContent>
+                  </a>
+                ) : (
+                  <CardContent>
+                    <div className="space-y-2">
+                      <h4 className="text-sm font-medium text-foreground">イベント詳細</h4>
+                      <p className="text-sm text-muted-foreground">
+                        詳細情報はありません
+                      </p>
                     </div>
-                  </div>
-                </CardContent>
+                  </CardContent>
+                )}
               </Card>
             ))}
           </div>
