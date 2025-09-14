@@ -2,7 +2,6 @@
 
 import { format } from "date-fns"
 import {
-  Calendar,
   ChevronLeft,
   ChevronRight,
   ExternalLink,
