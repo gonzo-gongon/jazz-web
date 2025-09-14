@@ -1,43 +1,46 @@
 # コードベース構造
 
-## ルートディレクトリ
+## プロジェクトルート
 ```
 jazz-web/
-├── .serena/              # Serena設定
-├── .claude/              # Claude Code設定  
-├── src/                  # ソースコード
-├── .wrangler/            # Wrangler作業ディレクトリ（ローカル）
-├── package.json          # npm設定
-├── wrangler.toml         # Cloudflare設定
-├── biome.json           # リンター・フォーマッター設定
-├── tsconfig.json        # TypeScript設定
-├── tailwind.config.ts   # Tailwind CSS設定
-├── next.config.ts       # Next.js設定
-└── CLAUDE.md            # Claude Code設定
+├── app/                    # Next.js App Router
+├── components/             # Reactコンポーネント
+├── hooks/                  # カスタムフック
+├── lib/                    # ユーティリティ・設定
+├── generated/              # GraphQL自動生成ファイル
+├── public/                 # 静的ファイル
+└── 設定ファイル群
 ```
 
-## src/ ディレクトリ詳細
-```
-src/
-├── app/                 # Next.js App Router
-│   ├── layout.tsx       # 全体レイアウト
-│   ├── page.tsx         # ホームページ
-│   └── globals.css      # グローバルCSS
-├── components/          # Reactコンポーネント（未実装）
-├── lib/                 # ユーティリティ・ライブラリ
-│   └── apollo.ts        # Apollo GraphQLクライアント設定
-└── types/               # TypeScript型定義
-    └── index.ts         # 共通型定義
-```
+## app/ ディレクトリ
+- `layout.tsx`: ルートレイアウト
+- `page.tsx`: ホームページ (HomePage)
+- `loading.tsx`: ローディングUI
+- `globals.css`: グローバルスタイル
 
-## 主要ファイル
-- **src/app/page.tsx**: メインページ（検索UI）
-- **src/types/index.ts**: Event, SearchFilters, SearchState型定義
-- **src/lib/apollo.ts**: GraphQL クライアント設定
-- **wrangler.toml**: D1データベース設定（jazz）
+## components/ ディレクトリ
+- `ui/`: shadcn/uiコンポーネント
+  - button, card, dialog, input, calendar等
+- `event-calendar.tsx`: イベントカレンダーコンポーネント
+- `event-search.tsx`: イベント検索コンポーネント
+- `jazz-header.tsx`: ヘッダーコンポーネント
+- `providers.tsx`: プロバイダー設定
 
-## 未実装・今後の拡張
-- GraphQL スキーマ・リゾルバ
-- データベースマイグレーション
-- 認証機能
-- 詳細検索コンポーネント
+## lib/ ディレクトリ
+- `apollo.ts`: Apollo Clientの設定
+- `queries.ts`: GraphQLクエリ定義 (SEARCH_EVENTS)
+- `utils.ts`: ユーティリティ関数
+
+## hooks/ ディレクトリ
+- `use-search-events.ts`: イベント検索カスタムフック
+
+## generated/ ディレクトリ
+- `graphql.ts`: GraphQL Code Generatorによる自動生成ファイル
+
+## 設定ファイル
+- `package.json`: 依存関係・スクリプト
+- `next.config.ts`: Next.js設定
+- `wrangler.toml`: Cloudflare設定
+- `biome.json`: Biome設定
+- `codegen.yml`: GraphQL Code Generator設定
+- `tsconfig.json`: TypeScript設定

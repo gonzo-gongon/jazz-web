@@ -1,44 +1,45 @@
-# 推奨コマンド
+# 開発・運用コマンド
 
 ## 開発サーバー
 ```bash
-npm run dev                    # Next.js開発サーバー起動
-npm run preview               # Cloudflare Pages ローカルプレビュー
-```
-
-## ビルド・デプロイ
-```bash
-npm run build                 # Next.jsビルド
-npm run pages:build          # Cloudflare Pages用ビルド
-npm run deploy               # Cloudflareにデプロイ
+npm run dev                 # GraphQL型生成 + 開発サーバー起動
+npm run codegen             # GraphQL型生成のみ
+npm run codegen:watch       # GraphQL型生成（ウォッチモード）
 ```
 
 ## コード品質
 ```bash
-npm run lint                 # Biomeリンターチェック
-npm run lint:fix            # Biomeリンター自動修正
-npm run format              # Biomeフォーマッター実行
+npm run lint               # Biomeによるコードチェック
+npm run lint:fix           # Biomeによる自動修正
+npm run format             # Biomeによるフォーマット
 ```
 
-## データベース（D1）
+## ビルド・デプロイ
 ```bash
-npx wrangler d1 migrations apply jazz --local    # ローカルマイグレーション実行
-npx wrangler d1 execute jazz --local --file=./seed/seed.sql  # シードデータ投入
-sqlite3 .wrangler/state/d1/jazz.sqlite          # SQLite直接操作
+npm run pages:build        # Cloudflare Pages用ビルド
+npm run preview            # ローカルプレビュー
+npm run deploy             # Cloudflare Pagesへデプロイ
 ```
 
 ## Cloudflare関連
 ```bash
-npm run cf-typegen          # Cloudflare型定義生成
-wrangler pages dev          # Pages開発サーバー
-wrangler pages deploy       # Pagesデプロイ
+npm run cf-typegen         # Cloudflare Worker型生成
+wrangler pages dev         # Cloudflareローカル開発
 ```
 
-## システム基本コマンド (macOS)
-```bash
-ls -la                      # ファイル一覧表示
-cd <directory>             # ディレクトリ移動
-grep -r <pattern> <dir>    # パターン検索
-find . -name <pattern>     # ファイル検索
-git status                 # Git状態確認
-```
+## GraphQL
+- GraphQL Code Generatorによる自動型生成
+- 設定ファイル: `codegen.yml`
+- 生成先: `generated/graphql.ts`
+
+## 開発フロー
+1. `npm run dev` で開発サーバー起動
+2. コード変更
+3. `npm run lint` でコード品質チェック
+4. `npm run pages:build` でビルド確認
+5. `npm run deploy` でデプロイ
+
+## 必須コマンド実行順序
+1. GraphQL型生成が必要な場合は `npm run codegen`
+2. 開発時は `npm run dev`（自動でcodegenも実行）
+3. デプロイ前は必ず `npm run lint` でコード品質確認

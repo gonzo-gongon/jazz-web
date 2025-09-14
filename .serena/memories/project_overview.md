@@ -1,27 +1,26 @@
-# Jazz Web - プロジェクト概要
+# プロジェクト概要
+
+## プロジェクト名
+jazz-web - 東京のジャズライブハウス情報検索サイト
 
 ## プロジェクトの目的
-東京のジャズライブハウスの情報を検索できるWebアプリケーション
+東京のジャズライブハウスの情報を検索・閲覧するWebアプリケーション
 
-## 主な機能
-- ジャズイベント検索（楽器・場所・日時で検索可能）
-- Cloudflare上でGoogleアカウント連携による認証（個人専用）
-- 週1回のクローラーによる情報更新
+## 主要機能
+- **イベント検索機能**: 楽器、場所、日付でジャズライブイベントを検索
+- **カレンダー表示**: イベントをカレンダー形式で表示
+- **認証機能**: Cloudflare + Google認証（個人利用目的）
+- **データ更新**: 週次クローラーによるデータ更新
 
-## システム構成
-- **フロントエンド**: Next.js + React + TypeScript + Tailwind CSS
-- **バックエンド**: Cloudflare Pages/Workers + D1 (SQLite)
-- **認証**: Cloudflare Access + Google OAuth
-- **データ収集**: 別リポジトリ jazz-scraper (private)
+## アーキテクチャ
+- **フロントエンド**: Next.js 15 (App Router) + React 19
+- **スタイリング**: Tailwind CSS 4 + shadcn/ui
+- **データ取得**: GraphQL (Apollo Client)
+- **デプロイ**: Cloudflare Pages
+- **データベース**: D1 (SQLite)
 
-## データベース設計 (D1/SQLite)
-```sql
-venues (id, name, area, address, url)
-artists (id, name, instrument)  
-events (id, venue_id, title, start_at, end_at, price_yen, url)
-event_artists (event_id, artist_id, role) -- N:N関係
-```
-
-## ローカル開発環境
-- D1ローカル: `.wrangler/state/d1/jazz.sqlite`
-- 直接SQLite操作: `sqlite3 .wrangler/state/d1/jazz.sqlite`
+## プロジェクト特徴
+- 個人使用向けのジャズライブ情報検索システム
+- モダンなReact技術スタックの使用
+- GraphQLによる効率的なデータ取得
+- Cloudflareエコシステムでの完全なホスティング

@@ -1,40 +1,37 @@
-# コードスタイル・規約
+# コーディング規約
 
-## Biome設定 (biome.json)
-- **インデント**: 2スペース
-- **行幅**: 80文字
-- **クォート**: ダブルクォート ("") 
-- **セミコロン**: 必要時のみ (asNeeded)
-- **末尾カンマ**: ES5準拠
+## フォーマッター・リンター
+- **Biome**: コードフォーマッター・リンター
+  - `npm run lint`: チェック実行
+  - `npm run lint:fix`: 自動修正
+  - `npm run format`: フォーマット実行
 
-## TypeScript規約
-- **strictモード**: 有効
-- **型注釈**: 明示的に記述
-- **インポート**: `@/*` エイリアス使用可能
+## TypeScript設定
+- 厳格なTypeScript設定
+- ビルド時のエラーを無視する設定（`ignoreBuildErrors: true`）
+- ESLintチェックをビルド時に無視（`ignoreDuringBuilds: true`）
 
-## ファイル構成
-```
-src/
-├── app/           # Next.js App Router
-├── components/    # React コンポーネント
-├── lib/          # ユーティリティ・設定
-└── types/        # TypeScript型定義
-```
+## コンポーネント命名規約
+- Reactコンポーネント: PascalCase
+- ファイル名: kebab-case (例: `event-calendar.tsx`)
+- カスタムフック: `use-` プレフィックス
 
-## 命名規則
-- **コンポーネント**: PascalCase (`HomePage`, `SearchForm`)
-- **関数・変数**: camelCase (`handleSearch`, `searchQuery`)
-- **型定義**: PascalCase (`SearchFilters`, `Event`)
-- **定数**: UPPER_SNAKE_CASE
-- **ファイル名**: kebab-case または PascalCase
+## ディレクトリ構造
+- `components/ui/`: 再利用可能なUIコンポーネント
+- `components/`: ビジネスロジック含むコンポーネント
+- `hooks/`: カスタムフック
+- `lib/`: ユーティリティ・設定
 
-## React規約
-- **関数コンポーネント**: アロー関数または通常関数
-- **Hooks**: use-プレフィックス
-- **Props**: 型定義必須
-- **JSX**: 明示的な型注釈 (`JSX.Element`)
+## GraphQL規約
+- クエリ名: SCREAMING_SNAKE_CASE
+- 自動生成された型を使用
+- Apollo Clientでの型安全なクエリ実行
 
-## CSS規約
-- **Tailwind CSS**: ユーティリティファーストアプローチ
-- **レスポンシブ**: `md:`, `lg:` プレフィックス使用
-- **カスタムスタイル**: 必要に応じてCSS Modules
+## CSS/スタイリング
+- Tailwind CSS使用
+- shadcn/uiコンポーネントライブラリ
+- CSS-in-JSではなくTailwindクラス使用
+
+## Git規約
+- **コミットメッセージは日本語**
+- ブランチ: main
