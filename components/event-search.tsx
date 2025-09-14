@@ -1,7 +1,7 @@
 "use client"
 
 import { Search } from "lucide-react"
-import { useState } from "react"
+import { useId, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -13,6 +13,8 @@ interface EventSearchProps {
 }
 
 export function EventSearch({ onSearch }: EventSearchProps) {
+  const searchId = useId()
+
   const [searchQuery, setSearchQuery] = useState("")
 
   const handleSearch = () => {
@@ -44,7 +46,7 @@ export function EventSearch({ onSearch }: EventSearchProps) {
               イベントタイトル検索
             </Label>
             <Input
-              id="search"
+              id={searchId}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="ジャズセッション"

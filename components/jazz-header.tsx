@@ -14,8 +14,12 @@ export function JazzHeader() {
             <Music className="h-8 w-8 text-yellow-900" />
           </div>
           <div>
-            <h1 className="text-4xl md:text-5xl font-serif font-bold text-balance text-white">Jazz Web</h1>
-            <p className="text-xl md:text-2xl font-light opacity-90 text-white">東京ジャズライブハウス情報</p>
+            <h1 className="text-4xl md:text-5xl font-serif font-bold text-balance text-white">
+              Jazz Web
+            </h1>
+            <p className="text-xl md:text-2xl font-light opacity-90 text-white">
+              東京ジャズライブハウス情報
+            </p>
           </div>
         </div>
       </div>

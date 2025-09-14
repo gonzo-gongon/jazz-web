@@ -1,6 +1,9 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+/* Added Google Fonts import for Playfair Display */
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap");
+
 @custom-variant dark (&:is(.dark *));
 
 :root {
@@ -126,6 +129,3 @@
     @apply bg-background text-foreground;
   }
 }
-
-/* Added Google Fonts import for Playfair Display */
-@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap");

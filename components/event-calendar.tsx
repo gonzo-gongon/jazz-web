@@ -134,9 +134,7 @@ export function EventCalendar({ searchInput }: EventCalendarProps) {
     <div className="space-y-6">
       {/* Calendar Header */}
       <div className="flex items-center justify-between">
-        <h2 className="text-3xl font-serif font-bold text-primary">
-          日程
-        </h2>
+        <h2 className="text-3xl font-serif font-bold text-primary">日程</h2>
         <div className="flex items-center gap-4">
           <Button
             variant="outline"

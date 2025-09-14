@@ -23,7 +23,9 @@ export default function RootLayout({
     <>
       {/* 拡張機能（Google Analytics オプトアウトなど）でHydration Errorになるのを回避 */}
       <html lang="ja" suppressHydrationWarning>
-        <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable}`}>
+        <body
+          className={`font-sans ${GeistSans.variable} ${GeistMono.variable}`}
+        >
           <Providers>
             <Suspense fallback={null}>{children}</Suspense>
           </Providers>
