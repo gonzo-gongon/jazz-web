@@ -5,7 +5,7 @@ pages_build_output_dir = ".vercel/output/static"
 
 [[services]]
 binding = "GQL"
-service = "jazz-scraper"
+service = "jazz-scraper-production"
 
 [env.production.vars]
 ENVIRONMENT = "production"
