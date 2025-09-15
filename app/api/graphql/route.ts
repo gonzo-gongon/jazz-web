@@ -1,5 +1,7 @@
 import type { NextRequest } from "next/server"
 
+export const runtime = "edge"
+
 // Cloudflare環境変数の型定義
 interface CloudflareEnv {
   GQL: {
