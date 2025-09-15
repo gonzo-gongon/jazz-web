@@ -72,6 +72,7 @@
   "devDependencies": {
     "@biomejs/biome": "^2.2.2",
     "@cloudflare/next-on-pages": "^1.13.16",
+    "@cloudflare/workers-types": "^4.20250913.0",
     "@graphql-codegen/cli": "^5.0.7",
     "@graphql-codegen/typescript": "^4.1.6",
     "@graphql-codegen/typescript-react-apollo": "^4.3.3",
