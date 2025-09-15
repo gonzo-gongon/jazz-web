@@ -1,7 +1,5 @@
 import type { NextRequest } from "next/server"
 
-export const runtime = 'edge'
-
 // Cloudflare環境変数の型定義
 interface CloudflareEnv {
   GQL: {
@@ -41,10 +39,15 @@ export async function POST(request: NextRequest) {
     })
   } catch (error) {
     console.error("GraphQL proxy error:", error)
-    return new Response(JSON.stringify({ error: "Internal server error" }), {
-      status: 500,
-      headers: { "Content-Type": "application/json" },
-    })
+    return new Response(
+      JSON.stringify({
+        error: "Internal server error" + `${error}`,
+      }),
+      {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      }
+    )
   }
 }
 
