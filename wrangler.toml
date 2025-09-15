@@ -1,6 +1,7 @@
 name = "jazz-web"
 compatibility_date = "2025-08-01"
 compatibility_flags = ["nodejs_compat"]
+pages_build_output_dir = ".vercel/output/static"
 
 [[services]]
 binding = "GQL"

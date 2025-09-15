@@ -1,5 +1,3 @@
-import type { NextRequest } from "next/server"
-
 export const runtime = "edge"
 
 // Cloudflare環境変数の型定義
@@ -7,7 +5,7 @@ interface CloudflareEnv {
   GQL: Fetcher
 }
 
-export async function POST(request: NextRequest) {
+export async function POST(request: Request) {
   try {
     // Cloudflare service binding経由でGraphQLにアクセス
     const env = process.env as unknown as CloudflareEnv
@@ -15,7 +13,13 @@ export async function POST(request: NextRequest) {
       return new Response("GraphQL service not available", { status: 503 })
     }
 
-    const response = await env.GQL.fetch(request)
+    // Requestを再構築してservice bindingに渡す
+    const body = request.method !== "GET" ? await request.clone().text() : null
+    const response = await env.GQL.fetch(request.url, {
+      method: request.method,
+      headers: request.headers,
+      body: body,
+    })
 
     const data = await response.text()
 
@@ -29,7 +33,7 @@ export async function POST(request: NextRequest) {
     console.error("GraphQL proxy error:", error)
     return new Response(
       JSON.stringify({
-        error: "Internal server error" + `${error}`,
+        error: "Internal server error" + `${error} && ${request}`,
       }),
       {
         status: 500,

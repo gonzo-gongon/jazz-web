@@ -4,6 +4,7 @@
   "description": "東京のジャズライブハウス情報検索サイト",
   "private": true,
   "scripts": {
+    "vercel-build": "next build",
     "codegen": "graphql-codegen",
     "codegen:watch": "graphql-codegen --watch",
     "dev": "npm run codegen && next dev",
