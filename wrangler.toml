@@ -3,9 +3,9 @@ compatibility_date = "2025-08-01"
 compatibility_flags = ["nodejs_compat"]
 pages_build_output_dir = ".vercel/output/static"
 
-[env.production.vars]
-ENVIRONMENT = "production"
-
-[[services]]
+[[env.production.services]]
 binding = "GQL"
 service = "jazz-scraper"
+
+[env.production.vars]
+ENVIRONMENT = "production"
