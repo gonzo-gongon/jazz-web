@@ -8,7 +8,7 @@ import {
   Loader2,
   MapPin,
 } from "lucide-react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -24,14 +24,18 @@ import { useSearchEvents } from "@/hooks/use-search-events"
 
 interface EventCalendarProps {
   searchInput?: EventSearchInput
+  onDateRangeChange?: (startDate: Date, endDate: Date) => void
 }
 
 const openDetailPageTab = (url?: string | null) => {
   window.open(url ? url : "", "_blank")
 }
 
-export function EventCalendar({ searchInput }: EventCalendarProps) {
-  const [currentDate, setCurrentDate] = useState(new Date(2025, 7, 1)) // August 2025
+export function EventCalendar({
+  searchInput,
+  onDateRangeChange,
+}: EventCalendarProps) {
+  const [currentDate, setCurrentDate] = useState(new Date())
 
   // Use GraphQL data if searchInput is provided, otherwise show empty calendar
   const { data, loading, error } = searchInput
@@ -77,6 +81,15 @@ export function EventCalendar({ searchInput }: EventCalendarProps) {
       return newDate
     })
   }
+
+  // Notify parent component of date range changes
+  useEffect(() => {
+    if (onDateRangeChange) {
+      const startOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0)
+      const endOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0, 23, 59, 59)
+      onDateRangeChange(startOfMonth, endOfMonth)
+    }
+  }, [currentDate, onDateRangeChange])
 
   const daysInMonth = getDaysInMonth(currentDate)
   const firstDayOfMonth = getFirstDayOfMonth(currentDate)

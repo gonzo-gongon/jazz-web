@@ -43,3 +43,4 @@ Tokyo jazz live house information search system with:
 - Weekly crawler data updates
 - Next.js + TypeScript + Tailwind CSS
 - D1 (SQLite) database
+- replace_symbol_bodyはファイルを破壊する可能性があるので使用しないこと
